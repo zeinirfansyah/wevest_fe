@@ -4,12 +4,9 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Button } from "../atoms/button";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/stores/auth-store";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const { isAuthenticated } = useAuthStore((state) => state);
 
   const router = useRouter();
 
@@ -46,7 +43,7 @@ export const Navbar = () => {
                   Home
                 </Link>
                 <Link
-                  href="/#about"
+                  href="/about"
                   className="hover:text-blue-500 transition-all duration-300"
                 >
                   About Us
@@ -57,20 +54,18 @@ export const Navbar = () => {
                 >
                   Help
                 </Link>
-                {isAuthenticated && (
-                  <Link
-                  href="/#contact"
-                  className="hover:text-blue-500 transition-all duration-300"
-                >
-                  Product
-                </Link>
-                )}
               </div>
-              {!isAuthenticated && (
-                <Button variant="blue" onClick={() => router.push("/login")}>
+              <div className="flex flex-col lg:flex-row gap-2">
+                <Button
+                  variant="filled_blue"
+                  onClick={() => router.push("/register")}
+                >
+                  Register
+                </Button>
+                <Button variant="filled_blue" onClick={() => router.push("/#")}>
                   Login
                 </Button>
-              )}
+              </div>
             </div>
           </div>
         </nav>
